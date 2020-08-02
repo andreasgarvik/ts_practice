@@ -12,6 +12,15 @@ class Boat {
 	}
 }
 function logError(target: any, key: string, desc: PropertyDescriptor): void {
-	console.log(target)
-	console.log(key)
+	const method = desc.value
+
+	desc.value = function () {
+		try {
+			method()
+		} catch (e) {
+			console.log('haaa..')
+		}
+	}
 }
+
+new Boat().pilot()
